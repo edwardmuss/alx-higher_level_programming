@@ -1,114 +1,74 @@
-===============================
-1. Print sorted module
-===============================
+# run test with python3 -m doctest -v ./tests/[filename].txt
 
-Import module:
-==============
-    >>> MyList = __import__('1-my_list').MyList
+First import method to test
+>>> MyList = __import__('1-my_list').MyList
 
+SUCCESS CASES:
 
-Function:
-=========
-Write a class MyList that inherits from list:
+Test ints (program assumes all elements will be type int):
+     >>> my_list = MyList()
+     >>> my_list.append(3)
+     >>> my_list.append(50)
+     >>> my_list.append(-1)
+     >>> print(my_list)
+     [3, 50, -1]
+     >>> my_list.print_sorted()
+     [-1, 3, 50]
+     >>> print(my_list)
+     [3, 50, -1]
 
-    * You can assume that all the elements of the list will be of type int
+     >>> another_list = MyList()
+     >>> another_list.append(300)
+     >>> another_list.append(50)
+     >>> another_list.append(-1)
+     >>> print(another_list)
+     [300, 50, -1]
+     >>> another_list.print_sorted()
+     [-1, 50, 300]
+     >>> print(another_list)
+     [300, 50, -1]
 
-Section // No exceptions
-=========================
+     >>> l = MyList()
+     >>> l.append(-300)
+     >>> l.append(50)
+     >>> l.append(-1)
+     >>> print(l)
+     [-300, 50, -1]
+     >>> id(l) is not id(l.print_sorted())
+     [-300, -1, 50]
+     True
 
-Test case #0: A test case to order a disordered list of positive integers
+Test list with only one element:
+     >>> solo = MyList()
+     >>> solo.append(-99999)
+     >>> print(solo)
+     [-99999]
+     >>> solo.print_sorted()
+     [-99999]
+     >>> print(solo)
+     [-99999]
 
-    >>> my_list = MyList()
-    >>> my_list.append(1)
-    >>> my_list.append(4)
-    >>> my_list.append(2)
-    >>> my_list.append(3)
-    >>> my_list.append(5)
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
+Test list with no elements:
+     >>> empty = MyList()
+     >>> print(empty)
+     []
+     >>> empty.print_sorted()
+     []
 
-    >>> my_list.print_sorted()
-    [1, 2, 3, 4, 5]
+Test type, isinstance, issubclass:
+     >>> type(MyList())
+     <class '1-my_list.MyList'>
 
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
+     >>> isinstance(MyList, object)
+     True
 
-Test case #1: A test case to order a disordered list of positive integers
+     >>> isinstance(MyList, list)
+     False
 
-    >>> my_list = MyList()
-    >>> my_list.append(5)
-    >>> my_list.append(4)
-    >>> my_list.append(3)
-    >>> my_list.append(2)
-    >>> my_list.append(1)
-    >>> print(my_list)
-    [5, 4, 3, 2, 1]
+     >>> issubclass(MyList, list)
+     True
 
-    >>> my_list.print_sorted()
-    [1, 2, 3, 4, 5]
+     >>> 'print_sorted' in dir(MyList)
+     True
 
-    >>> print(my_list)
-    [5, 4, 3, 2, 1]
-
-Test case #2: A test case for a empty list
-
-    >>> my_list = MyList()
-    >>> print(my_list)
-    []
-
-    >>> my_list.print_sorted()
-    []
-
-    >>> print(my_list)
-    []
-
-Test case #3: A test case for do nothing
-
-    >>> my_list = MyList()
-    >>> my_list.append(-5)
-    >>> my_list.append(-4)
-    >>> my_list.append(-3)
-    >>> my_list.append(-2)
-    >>> my_list.append(-1)
-    >>> print(my_list)
-    [-5, -4, -3, -2, -1]
-
-    >>> my_list.print_sorted()
-    [-5, -4, -3, -2, -1]
-
-    >>> print(my_list)
-    [-5, -4, -3, -2, -1]
-
-Test case #4: A test case to order a disordered list of negative integers
-
-    >>> my_list = MyList()
-    >>> my_list.append(-1)
-    >>> my_list.append(-4)
-    >>> my_list.append(-2)
-    >>> my_list.append(-3)
-    >>> my_list.append(-5)
-    >>> print(my_list)
-    [-1, -4, -2, -3, -5]
-
-    >>> my_list.print_sorted()
-    [-5, -4, -3, -2, -1]
-
-    >>> print(my_list)
-    [-1, -4, -2, -3, -5]
-
-
-Section // Attribute Errors
-============================
-
-Test case #5: A invalid test case of tuples
-
-    >>> my_list = (1, 2)
-    >>> print(my_list)
-    (1, 2)
-    
-    >>> my_list.print_sorted()
-    Traceback (most recent call last):
-    AttributeError: 'tuple' object has no attribute 'print_sorted'
-
-    >>> print(my_list)
-    (1, 2)
+FAIL CASES:
